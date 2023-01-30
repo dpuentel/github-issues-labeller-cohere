@@ -20,5 +20,5 @@
   "editor.quickSuggestions": {
     "strings": "on"
   },
-  "conventionalCommits.scopes": ["component", "entry", "root"]
+  "conventionalCommits.scopes": ["component", "entry", "root", "Custom hook"]
 }
