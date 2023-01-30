@@ -1,28 +1,23 @@
 ---
 import Layout from '../layouts/Layout.astro'
 import TextBlock from '../components/TextBlock.astro'
-import { SearchRepo } from '../components/SearchRepo';
+import { SearchRepo } from '../components/SearchRepo'
 ---
 
 <Layout title='GitHub Issues Labeller'>
 	<main class='container max-w-3xl mx-auto mt-10 flex flex-col gap-8'>
 		<section class='bg-indigo-800 p-4 rounded-lg'>
-			<TextBlock>This is a GitHub issue tagger.</TextBlock>
+			<TextBlock>This is a GitHub issue labeller.</TextBlock>
 			<TextBlock>
-        Insert the url of a repository and using Artificial Intelligence, the
-        most appropriate tags for untagged issues will be determined based on
-        those already tagged in the project.
+				Insert the url of a repository and using Artificial Intelligence, the most appropriate tags
+				for untagged issues will be determined based on those already tagged in the project.
 			</TextBlock>
 			<TextBlock>
-        The more issues that are already tagged, the more accurate the AI will
-        be in suggesting new tags.
+				The more issues that are already tagged, the more accurate the AI will be in suggesting new
+				tags.
 			</TextBlock>
 		</section>
 
-		<SearchRepo
-			label='The Github URL:'
-			placeholder='https://github.com/pnpm/pnpm'
-			client:load
-		/>
+		<SearchRepo label='The Github URL:' placeholder='https://github.com/pnpm/pnpm' client:load />
 	</main>
 </Layout>
