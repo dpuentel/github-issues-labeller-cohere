@@ -1,12 +1,14 @@
 export function Link ({
 	href,
 	customClass,
+	text,
 	title,
 	external
 }: {
 	href: string
 	customClass?: string
-	title: string
+	text: string
+	title?: string
 	external?: boolean
 }) {
 	return (
@@ -15,8 +17,9 @@ export function Link ({
 			href={href}
 			rel='noopener noreferrer'
 			target={external ? '_blank' : undefined}
+			title={title ?? text}
 		>
-			{title}
+			{text}
 		</a>
 	)
 }
