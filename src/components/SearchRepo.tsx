@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef } from "react";
+import { useClassify } from "../hooks/useClassify";
 import { useGitHubIssues } from "../hooks/useGitHubIssues";
 import type { CohereClassification } from "../interfaces/Cohere";
 import type { GitHubIssuesRequestParams, Issue } from "../interfaces/GitHub";
@@ -27,29 +28,13 @@ export function SearchRepo({ placeholder, label }: SearchRepoProps) {
     issuesGroupedByLabel,
     reloadIssuesUnlabelledWithPredictions,
   } = useGitHubIssues({ url });
-  const [classifies, setClassifies] = useState<CohereClassification[]>([]);
+  const { classifies } = useClassify({issuesLabeled, issuesUnlabelled, issuesGroupedByLabel})
 
   useEffect(() => {
     if (githubUrlInput.current && !url) {
       githubUrlInput.current.focus();
     }
   }, []);
-
-  useEffect(() => {
-    if (!issuesGroupedByLabel || Object.keys(issuesGroupedByLabel).length === 0)
-      return;
-
-    classify({
-      inputs: generateInputsByIssues(issuesUnlabelled),
-      examples: generateExamplesByIssues(issuesGroupedByLabel),
-    }).then((classifies) => {
-      if (!classifies || !classifies?.classifications) {
-        console.error("classifies is undefined");
-        return;
-      }
-      setClassifies(classifies.classifications);
-    });
-  }, [issuesLabeled]);
 
   useEffect(() => {
     const newIssuesUnlabelled = [...issuesUnlabelled];
