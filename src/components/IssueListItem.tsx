@@ -15,7 +15,8 @@ export function IssueListItem ({ issue }: { issue: Issue }) {
 			</span>
 			<Link
 				customClass='col-span-4 hover:text-gray-200'
-				title={issue.title}
+				text={issue.title}
+				title={issue.body}
 				href={issue.html_url}
 				external={true}
 			/>
