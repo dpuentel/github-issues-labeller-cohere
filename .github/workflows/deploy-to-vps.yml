@@ -31,4 +31,4 @@ jobs:
             git status
             pnpm install --prod
             pnpm run build
-            github-issues-labeller
+            pm2 restart github-issues-labeller
