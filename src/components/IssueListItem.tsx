@@ -1,4 +1,5 @@
 import type { Issue } from "../interfaces/GitHub";
+import { Link } from "./Link";
 
 export function IssueListItem({ issue }: { issue: Issue }) {
   return (
@@ -11,14 +12,12 @@ export function IssueListItem({ issue }: { issue: Issue }) {
       >
         {issue.labels.at(0)?.name ?? "NO LABEL"}
       </span>
-      <a
-        className="col-span-4"
+      <Link
+        customClass="col-span-4 hover:text-gray-200"
+        title={issue.title}
         href={issue.html_url}
-        rel="noopener noreferrer"
-        target="_blank"
-      >
-        {issue.title}
-      </a>
+        external={true}
+      />
       {issue.prediction && (
         <span
           className="w-fit rounded-lg p-2 text-gray-900 font-black ml-auto relative col-span-2"
