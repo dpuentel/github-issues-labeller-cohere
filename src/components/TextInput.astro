@@ -1,0 +1,17 @@
+---
+export interface Props {
+  placeholder: string;
+  label: string;
+}
+
+const { placeholder, label } = Astro.props;
+---
+
+<label class="w-full flex flex-row">
+  <span class="w-fit">{label}</span>
+  <input
+    type="text"
+    placeholder={placeholder}
+    class="input input-bordered w-full rounded-lg p-2 bg-gray-800"
+  />
+</label>
