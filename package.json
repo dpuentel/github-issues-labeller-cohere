@@ -25,8 +25,8 @@
 		"animated-tailwindcss": "4.0.0",
 		"astro": "2.0.2",
 		"react": "18.2.0",
-		"react-dom": "18.2.0"
-		"tailwindcss": "3.2.4",
+		"react-dom": "18.2.0",
+		"tailwindcss": "3.2.4"
 	},
 	"devDependencies": {
 		"@typescript-eslint/eslint-plugin": "5.49.0",
