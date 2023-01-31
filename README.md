@@ -1,53 +1,44 @@
-# Astro Starter Kit: Basics
+# GitHub Issues Labeller
 
-```
-npm create astro@latest -- --template basics
-```
+You can test a [demo here](https://github-issues-labeller.dpuentel.com/).
 
-[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/withastro/astro/tree/latest/examples/basics)
-[![Open with CodeSandbox](https://assets.codesandbox.io/github/button-edit-lime.svg)](https://codesandbox.io/s/github/withastro/astro/tree/latest/examples/basics)
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/dpuentel/github-issues-labeller-cohere/tree/latest)
+[![Open with CodeSandbox](https://assets.codesandbox.io/github/button-edit-lime.svg)](https://codesandbox.io/s/github/dpuentel/github-issues-labeller-cohere/tree/latest)
+
 
 ![basics](https://user-images.githubusercontent.com/4677417/186188965-73453154-fdec-4d6b-9c34-cb35c248ae5b.png)
 
-## 🚀 Project Structure
+## 🚀 Project Description
 
-Inside of your Astro project, you'll see the following folders and files:
+This is a GitHub issue labeller.
 
-```
-/
-├── public/
-│   └── favicon.svg
-├── src/
-│   ├── components/
-│   │   └── Card.astro
-│   ├── layouts/
-│   │   └── Layout.astro
-│   └── pages/
-│       └── index.astro
-└── package.json
-```
+Insert the url of a repository and using Artificial Intelligence, the most appropriate tags for untagged issues will be determined based on those already tagged in the project.
 
-Astro looks for `.astro` or `.md` files in the `src/pages/` directory. Each page is exposed as a route based on its file name.
+The more issues that are already tagged, the more accurate the AI will be in suggesting new tags.
 
-There's nothing special about `src/components/`, but that's where we like to put any Astro/React/Vue/Svelte/Preact components.
+## 🧑‍💻 Project Tech Stack
 
-Any static assets, like images, can be placed in the `public/` directory.
+### 🚀 [Astro](https://astro.build/)
 
-## 🧞 Commands
+Astro is the web framework that is used to build the project. It's fast, lightweight and make life easier.
 
-All commands are run from the root of the project, from a terminal:
+### ⚛️ [React](https://reactjs.org/)
 
-| Command                | Action                                           |
-| :--------------------- | :----------------------------------------------- |
-| `npm install`          | Installs dependencies                            |
-| `npm run dev`          | Starts local dev server at `localhost:3000`      |
-| `npm run build`        | Build your production site to `./dist/`          |
-| `npm run preview`      | Preview your build locally, before deploying     |
-| `npm run astro ...`    | Run CLI commands like `astro add`, `astro check` |
-| `npm run astro --help` | Get help using the Astro CLI                     |
+React is used to build some UI components.
 
-## 👀 Want to learn more?
+### 🤖 [CoHere](https://cohere.ai/)
 
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+CoHere is an API that uses Artificial Intelligence to make predictions. Here is used to predict the labels for a GitHub issues not labeled.
+
+### 📄[GitHub API](https://docs.github.com/en/rest)
+
+The GitHub API is used to get the issues of a repository.
+
+### 🎨 [TailwindCSS](https://tailwindcss.com/)
+
+Tailwind CSS to fast style and build custom designs.
+
+### 📦 [Dinahosting VPS](https://www.dinahosting.com/)
+
+The [demo](https://github-issues-labeller.dpuentel.com/) is deployed to a VPS from Dinahosting using a GitHub Action.
