@@ -3,6 +3,7 @@ import { useClassify } from '../hooks/useClassify'
 import { useGitHubIssues } from '../hooks/useGitHubIssues'
 import { ErrorContainer } from './ErrorContainer'
 import { IssuesList } from './IssuesList'
+import { Loader } from './loader/Loader'
 
 interface SearchRepoProps {
 	placeholder: string
@@ -12,6 +13,13 @@ interface SearchRepoProps {
 export function SearchRepo ({ placeholder, label }: SearchRepoProps) {
 	const githubUrlInput = useRef<HTMLInputElement>(null)
 	const [url, setUrl] = useState('')
+	const [isLoading, setIsLoading] = useState(false)
+
+	const setLoader = (active: boolean) => {
+		setIsLoading(active)
+		console.log('setLoader', active)
+	}
+
 	const {
 		issues,
 		issuesError,
@@ -19,7 +27,7 @@ export function SearchRepo ({ placeholder, label }: SearchRepoProps) {
 		issuesUnlabelled,
 		issuesGroupedByLabel,
 		reloadIssuesUnlabelledWithPredictions
-	} = useGitHubIssues({ url })
+	} = useGitHubIssues({ url, setLoader })
 	const { classifies } = useClassify({ issuesLabeled, issuesUnlabelled, issuesGroupedByLabel })
 
 	useEffect(() => {
@@ -39,6 +47,7 @@ export function SearchRepo ({ placeholder, label }: SearchRepoProps) {
 			issue.confidence = Number((confidence * 100).toFixed())
 		})
 		reloadIssuesUnlabelledWithPredictions(newIssuesUnlabelled)
+		setLoader(false)
 	}, [classifies])
 
 	return (
@@ -55,6 +64,7 @@ export function SearchRepo ({ placeholder, label }: SearchRepoProps) {
 					autoFocus
 				/>
 			</label>
+			<Loader isEnabled={isLoading}/>
 			{issuesError && <ErrorContainer error={issuesError} />}
 
 			{issues.length > 0 && (

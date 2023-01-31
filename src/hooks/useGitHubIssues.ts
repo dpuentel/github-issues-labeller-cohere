@@ -7,7 +7,13 @@ import {
 	groupIssuesByLabel
 } from '../services/Github'
 
-export function useGitHubIssues ({ url }: { url: string }) {
+export function useGitHubIssues({
+	url,
+	setLoader
+}: {
+	url: string
+	setLoader: (active: boolean) => void
+}) {
 	const [issues, setIssues] = useState<Issue[]>([])
 	const [issuesError, setIssuesError] = useState<Error | null>(null)
 	const [issuesLabeled, setIssuesLabeled] = useState<Issue[]>([])
@@ -15,10 +21,13 @@ export function useGitHubIssues ({ url }: { url: string }) {
 	const [issuesGroupedByLabel, setIssuesGroupedByLabel] = useState<IssuesGroupedByLabel>({})
 
 	const fetchIssues = ({ owner, repo }: GitHubIssuesRequestParams) => {
+		setLoader(true)
 		gitHubIssuesGetter({ owner, repo })
 			.then((response) => {
 				if (!response) {
 					setIssuesError(new Error('No issues found or repo not exits'))
+					setIssues([])
+					setLoader(false)
 					return
 				}
 				if (issuesError) setIssuesError(null)
@@ -27,6 +36,7 @@ export function useGitHubIssues ({ url }: { url: string }) {
 			.catch((error) => {
 				setIssuesError(new Error(`No issues found or repo not exits. ${error.message}`))
 				setIssues([])
+				setLoader(false)
 			})
 	}
 
@@ -34,7 +44,6 @@ export function useGitHubIssues ({ url }: { url: string }) {
 		if (!url) return
 
 		if (!url.startsWith('https://github.com/')) {
-			// console.error("Invalid URL");
 			setIssuesError(new Error('The url must start with [https://github.com/]'))
 			return
 		}
