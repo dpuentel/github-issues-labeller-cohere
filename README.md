@@ -3,8 +3,8 @@
 You can test a ** [demo here](https://github-issues-labeller.dpuentel.com/) **.
 
 
-[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/dpuentel/github-issues-labeller-cohere/tree/latest)
-[![Open with CodeSandbox](https://assets.codesandbox.io/github/button-edit-lime.svg)](https://codesandbox.io/s/github/dpuentel/github-issues-labeller-cohere/tree/latest)
+[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/dpuentel/github-issues-labeller-cohere/tree/main)
+[![Open with CodeSandbox](https://assets.codesandbox.io/github/button-edit-lime.svg)](https://codesandbox.io/s/github/dpuentel/github-issues-labeller-cohere/tree/main)
 
 ![Preview](images/site-preview.png)
 
