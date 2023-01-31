@@ -1,0 +1,41 @@
+.loader {
+	animation: animloader 0.6s 0.3s ease infinite alternate;
+	background: currentColor;
+	border-radius: 4px;
+	box-sizing: border-box;
+	color: #fff;
+	display: block;
+	height: 4px;
+	left: 0;
+	margin: auto;
+	position: absolute;
+	right: 0;
+	width: 8%;
+}
+.loader::after,
+.loader::before {
+	animation: animloader 0.6s ease infinite alternate;
+	background: currentColor;
+	border-radius: 4px;
+	box-sizing: border-box;
+	content: '';
+	height: 4px;
+	position: absolute;
+	right: 110%;
+	top: 0;
+	width: 8%;
+}
+.loader::after {
+	animation-delay: 0.6s;
+	left: 110%;
+	right: auto;
+}
+
+@keyframes animloader {
+	0% {
+		width: 8%;
+	}
+	100% {
+		width: 40%;
+	}
+}
