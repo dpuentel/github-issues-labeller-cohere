@@ -47,7 +47,7 @@ export function SearchRepo ({ placeholder, label }: SearchRepoProps) {
 				<span className='w-fit'>{label}</span>
 				<input
 					ref={githubUrlInput}
-					type='text'
+					type='url'
 					placeholder={placeholder}
 					className='input input-bordered w-full rounded-lg p-2 bg-gray-800'
 					value={url}
