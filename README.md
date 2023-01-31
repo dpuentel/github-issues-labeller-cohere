@@ -1,13 +1,12 @@
 # GitHub Issues Labeller
 
-You can test a [demo here](https://github-issues-labeller.dpuentel.com/).
+You can test a ** [demo here](https://github-issues-labeller.dpuentel.com/) **.
 
 
 [![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/dpuentel/github-issues-labeller-cohere/tree/latest)
 [![Open with CodeSandbox](https://assets.codesandbox.io/github/button-edit-lime.svg)](https://codesandbox.io/s/github/dpuentel/github-issues-labeller-cohere/tree/latest)
 
-
-![basics](https://user-images.githubusercontent.com/4677417/186188965-73453154-fdec-4d6b-9c34-cb35c248ae5b.png)
+![Preview](images/site-preview.png)
 
 ## 🚀 Project Description
 
