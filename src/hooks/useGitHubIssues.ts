@@ -25,7 +25,7 @@ export function useGitHubIssues ({ url }: { url: string }) {
 				setIssues(response)
 			})
 			.catch((error) => {
-				setIssuesError(new Error(`No issues found or repo not exits. ${error}`))
+				setIssuesError(new Error(`No issues found or repo not exits. ${error.message}`))
 				setIssues([])
 			})
 	}
