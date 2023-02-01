@@ -3,7 +3,7 @@ import type { CohereClassification } from '../interfaces/Cohere'
 import type { Issue, IssuesGroupedByLabel } from '../interfaces/GitHub'
 import { classify, generateExamplesByIssues, generateInputsByIssues } from '../services/Cohere'
 
-export function useClassify({
+export function useClassify ({
 	issuesLabeled,
 	issuesUnlabelled,
 	issuesGroupedByLabel

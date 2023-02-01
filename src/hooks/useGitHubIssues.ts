@@ -7,7 +7,7 @@ import {
 	groupIssuesByLabel
 } from '../services/Github'
 
-export function useGitHubIssues({
+export function useGitHubIssues ({
 	url,
 	setLoader
 }: {
