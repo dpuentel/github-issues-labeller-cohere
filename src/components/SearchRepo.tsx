@@ -17,7 +17,6 @@ export function SearchRepo ({ placeholder, label }: SearchRepoProps) {
 
 	const setLoader = (active: boolean) => {
 		setIsLoading(active)
-		console.log('setLoader', active)
 	}
 
 	const {
