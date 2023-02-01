@@ -34,6 +34,7 @@ export function useGitHubIssues({
 				if (response.length === 0) {
 					setIssuesError(new Error('No issues found on the repo'))
 					setLoader(false)
+					return
 				}
 				setIssues(response)
 			})
