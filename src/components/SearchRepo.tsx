@@ -65,7 +65,7 @@ export function SearchRepo ({ placeholder, label }: SearchRepoProps) {
 				/>
 			</label>
 			<Loader isEnabled={isLoading}/>
-			{issuesError && <ErrorContainer error={issuesError} />}
+			<ErrorContainer error={issuesError} />
 
 			{issues.length > 0 && (
 				<>
