@@ -7,7 +7,7 @@ import {
 	groupIssuesByLabel
 } from '../services/Github'
 
-export function useGitHubIssues ({
+export function useGitHubIssues({
 	url,
 	setLoader
 }: {
@@ -31,6 +31,10 @@ export function useGitHubIssues ({
 					return
 				}
 				if (issuesError) setIssuesError(null)
+				if (response.length === 0) {
+					setIssuesError(new Error('No issues found on the repo'))
+					setLoader(false)
+				}
 				setIssues(response)
 			})
 			.catch((error) => {
