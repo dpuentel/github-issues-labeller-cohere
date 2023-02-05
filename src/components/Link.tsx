@@ -1,3 +1,5 @@
+import type { ReactNode } from 'react'
+
 export function Link ({
 	href,
 	customClass,
@@ -7,7 +9,7 @@ export function Link ({
 }: {
 	href: string
 	customClass?: string
-	text: string
+	text: ReactNode
 	title?: string
 	external?: boolean
 }) {
@@ -17,7 +19,7 @@ export function Link ({
 			href={href}
 			rel='noopener noreferrer'
 			target={external ? '_blank' : undefined}
-			title={title ?? text}
+			title={title ?? ''}
 		>
 			{text}
 		</a>

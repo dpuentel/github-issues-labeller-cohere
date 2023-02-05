@@ -1,9 +1,11 @@
 import { useState, useEffect, useRef } from 'react'
 import { useClassify } from '../hooks/useClassify'
 import { useGitHubIssues } from '../hooks/useGitHubIssues'
+import type { Issue } from '../interfaces/GitHub'
 import { ErrorContainer } from './ErrorContainer'
 import { IssuesList } from './IssuesList'
 import { Loader } from './loader/Loader'
+import Modal from './Modal'
 
 interface SearchRepoProps {
 	placeholder: string
@@ -14,6 +16,7 @@ export function SearchRepo ({ placeholder, label }: SearchRepoProps) {
 	const githubUrlInput = useRef<HTMLInputElement>(null)
 	const [url, setUrl] = useState('')
 	const [isLoading, setIsLoading] = useState(false)
+	const [modalIssue, setModalIssue] = useState<Issue | null>(null)
 
 	const setLoader = (active: boolean) => {
 		setIsLoading(active)
@@ -49,8 +52,17 @@ export function SearchRepo ({ placeholder, label }: SearchRepoProps) {
 		setLoader(false)
 	}, [classifies])
 
+	const openModal = (issue: Issue) => {
+		setModalIssue(issue)
+	}
+
+	const closeModal = () => {
+		setModalIssue(null)
+	}
+
 	return (
 		<>
+			<Modal closeModal={closeModal} title={modalIssue?.title} body={modalIssue?.body} link={modalIssue?.html_url} />
 			<label className='w-full flex flex-row'>
 				<span className='w-fit'>{label}</span>
 				<input
@@ -68,8 +80,8 @@ export function SearchRepo ({ placeholder, label }: SearchRepoProps) {
 
 			{issues.length > 0 && (
 				<>
-					<IssuesList issues={issuesUnlabelled} headerText={'Unlabeled'} />
-					<IssuesList issues={issuesLabeled} headerText={'Labeled'} />
+					<IssuesList issues={issuesUnlabelled} headerText={'Unlabeled'} openModal={openModal}/>
+					<IssuesList issues={issuesLabeled} headerText={'Labeled'} openModal={openModal}/>
 				</>
 			)}
 		</>
