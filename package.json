@@ -24,11 +24,18 @@
 		"@types/react-dom": "18.0.10",
 		"animated-tailwindcss": "4.0.0",
 		"astro": "2.0.2",
+		"parse-numeric-range": "1.3.0",
 		"react": "18.2.0",
 		"react-dom": "18.2.0",
+		"react-markdown": "8.0.5",
+		"react-syntax-highlighter": "15.5.0",
+		"rehype-highlight": "6.0.0",
+		"rehype-raw": "6.1.1",
+		"remark-gfm": "3.0.1",
 		"tailwindcss": "3.2.4"
 	},
 	"devDependencies": {
+		"@types/react-syntax-highlighter": "15.5.6",
 		"@typescript-eslint/eslint-plugin": "5.49.0",
 		"@typescript-eslint/parser": "5.49.0",
 		"eslint": "8.32.0",
