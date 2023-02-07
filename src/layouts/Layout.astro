@@ -23,6 +23,11 @@ const { title } = Astro.props
 			content='https://github-issues-labeller.dpuentel.com/site-preview.png'
 		/>
 		<meta property='og:title' content={title} />
+		<meta
+			property='og:description'
+			content='This is a GitHub issue labeller. Insert the url of a repository and using Artificial Intelligence, the most appropriate tags for untagged issues will be determined based on those already tagged in the project. The more issues that are already tagged, the more accurate the AI will be in suggesting new tags.'
+		/>
+		<meta property='og:url' content='https://github-issues-labeller.dpuentel.com' />
 		<title>{title}</title>
 		<link rel='apple-touch-icon' sizes='180x180' href='/apple-touch-icon.png' />
 		<link rel='icon' type='image/png' sizes='32x32' href='/favicon-32x32.png' />
