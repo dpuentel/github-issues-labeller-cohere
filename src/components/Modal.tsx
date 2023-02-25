@@ -2,18 +2,30 @@ import { useEffect, useState } from 'react'
 import { Link } from './Link'
 import Markdown from './Markdown'
 
-export default function Modal ({ title, body, link, closeModal }: { title: string|undefined, body: string|undefined, link: string|undefined, closeModal: () => void }) {
+export default function Modal ({
+	title,
+	body,
+	link,
+	extraHeaderContent,
+	closeModal
+}: {
+	title: string | undefined
+	body: string | undefined
+	link: string | undefined,
+	extraHeaderContent?: JSX.Element,
+	closeModal: () => void
+}) {
 	const [isClosing, setIsClosing] = useState(false)
 
 	useEffect(() => {
 		setIsClosing(!(body && title))
 	}, [body])
 
-	const handleCloseModal = () => {
+	const handlerCloseModal = () => {
 		setIsClosing(true)
 		setTimeout(() => {
 			closeModal()
-		}, 500)
+		}, 800)
 	}
 	return (
 		<>
@@ -25,30 +37,51 @@ export default function Modal ({ title, body, link, closeModal }: { title: strin
 				}}
 			>
 				<div className='relative w-auto my-6 mx-auto max-w-3xl'>
-					<div className='border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-gray-700 outline-none focus:outline-none'>
-						<header className='flex items-start justify-between p-5 border-b border-solid border-slate-200 rounded-t'>
-							<h3 className='text-3xl font-semibold'>
-								{title}
-							</h3>
-							<div className='float-right flex gap-2'>
-								<Link
-									customClass='h-8 w-8 text-2xl text-gray-300 hover:text-gray-200'
-									text={<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'><path fill='none' stroke='currentColor' strokeLinecap='round' strokeLinejoin='round' strokeWidth='32' d='M384 224v184a40 40 0 0 1-40 40H104a40 40 0 0 1-40-40V168a40 40 0 0 1 40-40h167.48M336 64h112v112M224 288 440 72'/></svg>}
-									title={'Open on GitHub'}
-									href={link ?? '#'}
-									external={true}
-								/>
-								<button
-									className='bg-transparent text-gray-300 hover:text-gray-200 h-8 w-8 text-2xl block outline-none focus:outline-none'
-									onClick={() => handleCloseModal()}
-									title='Close'
-								>
-									<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'><path fill='none' stroke='currentColor' strokeLinecap='round' strokeLinejoin='round' strokeWidth='32' d='M368 368 144 144m224 0L144 368'/></svg>
-								</button>
+					<div className='border-0 rounded-lg shadow-lg relative flex flex-col overflow-hidden h-[80vh] w-full bg-gray-700 outline-none focus:outline-none'>
+						<header className='grid grid-rows-2 p-5 border-b border-solid border-slate-200 rounded-t'>
+							<div className='flex items-start justify-between p-5 border-b border-solid border-slate-200 rounded-t'>
+								<h3 className='text-3xl font-semibold'>{title}</h3>
+								<div className='float-right flex gap-2'>
+									<Link
+										customClass='h-8 w-8 text-2xl text-gray-300 hover:text-gray-200'
+										text={
+											<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'>
+												<path
+													fill='none'
+													stroke='currentColor'
+													strokeLinecap='round'
+													strokeLinejoin='round'
+													strokeWidth='32'
+													d='M384 224v184a40 40 0 0 1-40 40H104a40 40 0 0 1-40-40V168a40 40 0 0 1 40-40h167.48M336 64h112v112M224 288 440 72'
+												/>
+											</svg>
+										}
+										title={'Open on GitHub'}
+										href={link ?? '#'}
+										external={true}
+									/>
+									<button
+										className='bg-transparent text-gray-300 hover:text-gray-200 h-8 w-8 text-2xl block outline-none focus:outline-none'
+										onClick={() => handlerCloseModal()}
+										title='Close'
+									>
+										<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'>
+											<path
+												fill='none'
+												stroke='currentColor'
+												strokeLinecap='round'
+												strokeLinejoin='round'
+												strokeWidth='32'
+												d='M368 368 144 144m224 0L144 368'
+											/>
+										</svg>
+									</button>
+								</div>
 							</div>
+							{extraHeaderContent}
 						</header>
 						<div className='relative p-6 flex-auto overflow-auto'>
-							{body && (<Markdown children={body}></Markdown>)}
+							{body && <Markdown children={body}></Markdown>}
 						</div>
 					</div>
 				</div>
