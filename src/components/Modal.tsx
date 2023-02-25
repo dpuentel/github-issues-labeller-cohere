@@ -11,8 +11,8 @@ export default function Modal ({
 }: {
 	title: string | undefined
 	body: string | undefined
-	link: string | undefined,
-	extraHeaderContent?: JSX.Element,
+	link: string | undefined
+	extraHeaderContent?: JSX.Element
 	closeModal: () => void
 }) {
 	const [isClosing, setIsClosing] = useState(false)

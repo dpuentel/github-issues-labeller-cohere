@@ -18,7 +18,7 @@ export function IssueListItem ({ issue }: { issue: Issue }) {
 		return `Are you sure you want to label this issue as ${issue.prediction}?`
 	}
 
-	const handlerDialogClick = ({ isAccepted }: {isAccepted: boolean}) => {
+	const handlerDialogClick = ({ isAccepted }: { isAccepted: boolean }) => {
 		console.log('handlerDialogClick', isAccepted)
 		if (isAccepted && issue.prediction) {
 			addLabelToIssue({ issue, label: issue.prediction })

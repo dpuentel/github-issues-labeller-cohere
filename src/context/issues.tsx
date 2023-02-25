@@ -1,7 +1,6 @@
 import { createContext, ReactNode, useState } from 'react'
 import { useAccessToken } from '../hooks/useAccessToken'
 import type { Issue, IssuesGroupedByLabel } from '../interfaces/GitHub'
-import { gitHubAddLabelToIssue } from '../services/Github'
 
 interface IssuesContextProps {
 	issues: Issue[]

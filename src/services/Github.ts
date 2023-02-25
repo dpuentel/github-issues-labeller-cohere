@@ -8,7 +8,7 @@ import type {
 	GitHubRepositoryCollaboratorPermission
 } from '../interfaces/GitHub'
 
-export async function gitHubIssuesGetter({ owner, repo, accessToken }: GitHubIssuesRequestParams) {
+export async function gitHubIssuesGetter ({ owner, repo, accessToken }: GitHubIssuesRequestParams) {
 	const headers = new Headers()
 	if (accessToken) {
 		headers.append('Authorization', `token ${accessToken}`)
@@ -23,7 +23,7 @@ export async function gitHubIssuesGetter({ owner, repo, accessToken }: GitHubIss
 	})
 }
 
-export async function gitHubUserReposGetter({ accessToken }: { accessToken: string }) {
+export async function gitHubUserReposGetter ({ accessToken }: { accessToken: string }) {
 	if (!accessToken) return Promise.reject(new Error('No access token provided!'))
 
 	const headers = new Headers()
@@ -38,7 +38,7 @@ export async function gitHubUserReposGetter({ accessToken }: { accessToken: stri
 	})
 }
 
-export async function gitHubRepositoryCollaboratorPermissionsGetter({
+export async function gitHubRepositoryCollaboratorPermissionsGetter ({
 	owner,
 	repo,
 	accessToken
@@ -70,7 +70,7 @@ export async function gitHubRepositoryCollaboratorPermissionsGetter({
 	return await response.json()
 }
 
-export async function gitHubUserHasWritePermissionOnRepo({
+export async function gitHubUserHasWritePermissionOnRepo ({
 	owner,
 	repo,
 	accessToken
@@ -91,7 +91,7 @@ export async function gitHubUserHasWritePermissionOnRepo({
 	return permissionResponse.permission === 'admin' || permissionResponse.permission === 'write'
 }
 
-export async function gitHubAuthenticatedUserGetter({
+export async function gitHubAuthenticatedUserGetter ({
 	accessToken
 }: {
 	accessToken: string
@@ -110,7 +110,7 @@ export async function gitHubAuthenticatedUserGetter({
 	})
 }
 
-export async function logout({
+export async function logout ({
 	accessToken
 }: {
 	accessToken: string
@@ -131,7 +131,7 @@ export async function logout({
 	})
 }
 
-export async function gitHubAddLabelToIssue({
+export async function gitHubAddLabelToIssue ({
 	owner,
 	repo,
 	issueNumber,
@@ -163,15 +163,15 @@ export async function gitHubAddLabelToIssue({
 	})
 }
 
-export function filterUnlabelledIssues({ issues }: { issues: Issue[] }) {
+export function filterUnlabelledIssues ({ issues }: { issues: Issue[] }) {
 	return issues.filter((issue) => issue.labels.length === 0)
 }
 
-export function filterLabeledIssues({ issues }: { issues: Issue[] }) {
+export function filterLabeledIssues ({ issues }: { issues: Issue[] }) {
 	return issues.filter((issue) => issue.labels.length > 0)
 }
 
-export function groupIssuesByLabel({ issuesLabeled }: { issuesLabeled: Issue[] }) {
+export function groupIssuesByLabel ({ issuesLabeled }: { issuesLabeled: Issue[] }) {
 	return issuesLabeled.reduce((acc: IssuesGroupedByLabel, issue) => {
 		issue.labels.forEach((label) => {
 			if (!acc[label.name]) {

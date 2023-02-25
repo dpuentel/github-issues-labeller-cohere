@@ -8,7 +8,7 @@ import {
 	groupIssuesByLabel
 } from '../services/Github'
 
-export function useGitHubIssues() {
+export function useGitHubIssues () {
 	const context = useContext(IssuesContext)
 
 	if (!context) {
