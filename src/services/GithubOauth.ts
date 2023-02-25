@@ -52,10 +52,6 @@ export const revokeOAuthGrant = (accessToken: string): Promise<{ logout: boolean
 			body: `{"access_token":"${accessToken}"}`
 		})
 			.then((response) => {
-				console.log({ response })
-				const body = response.body
-				console.log({ body })
-
 				if (response.status === 204) {
 					resolve({ logout: true })
 				} else {

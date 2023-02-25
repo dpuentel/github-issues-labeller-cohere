@@ -5,7 +5,6 @@ import { gitHubAddLabelToIssue } from '../services/Github'
 
 export const useAddLabelToIssue = () => {
 	const context = useContext(IssuesContext)
-	console.log({ context })
 
 	if (!context) {
 		throw new Error('useAddLabelToIssue must be used within a IssuesProvider')

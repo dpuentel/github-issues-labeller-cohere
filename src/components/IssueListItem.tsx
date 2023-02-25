@@ -10,7 +10,6 @@ export function IssueListItem ({ issue }: { issue: Issue }) {
 	const handlerPredictionClick = (e: MouseEvent<HTMLSpanElement>) => {
 		e.preventDefault()
 		e.stopPropagation()
-		console.log('handlePredictionClick', issue)
 		setShowConfirmation(true)
 	}
 
@@ -19,7 +18,6 @@ export function IssueListItem ({ issue }: { issue: Issue }) {
 	}
 
 	const handlerDialogClick = ({ isAccepted }: { isAccepted: boolean }) => {
-		console.log('handlerDialogClick', isAccepted)
 		if (isAccepted && issue.prediction) {
 			addLabelToIssue({ issue, label: issue.prediction })
 		}
