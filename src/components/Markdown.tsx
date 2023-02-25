@@ -43,9 +43,7 @@ export default function Markdown ({ children }: { children: string }) {
 					useInlineStyles={true}
 					lineProps={applyHighlights}
 					{...rest}
-				>
-				</SyntaxHighlighter>
-
+				></SyntaxHighlighter>
 			)
 			: (
 				<code className={className} {...rest} />
