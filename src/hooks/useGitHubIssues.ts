@@ -1,4 +1,5 @@
-import { useEffect, useState } from 'react'
+import { useContext, useEffect } from 'react'
+import { IssuesContext } from '../context/issues'
 import type { GitHubIssuesRequestParams, Issue, IssuesGroupedByLabel } from '../interfaces/GitHub'
 import {
 	gitHubIssuesGetter,
@@ -7,52 +8,74 @@ import {
 	groupIssuesByLabel
 } from '../services/Github'
 
-export function useGitHubIssues ({
-	url,
-	setLoader
-}: {
-	url: string
-	setLoader: (active: boolean) => void
-}) {
-	const [issues, setIssues] = useState<Issue[]>([])
-	const [issuesError, setIssuesError] = useState<Error | null>(null)
-	const [issuesLabeled, setIssuesLabeled] = useState<Issue[]>([])
-	const [issuesUnlabelled, setIssuesUnlabelled] = useState<Issue[]>([])
-	const [issuesGroupedByLabel, setIssuesGroupedByLabel] = useState<IssuesGroupedByLabel>({})
+export function useGitHubIssues() {
+	const context = useContext(IssuesContext)
+
+	if (!context) {
+		throw new Error('useGitHubIssues must be used within a IssuesProvider')
+	}
+
+	const {
+		issues,
+		setIssues,
+		issuesError,
+		setIssuesError,
+		issuesLabeled,
+		setIssuesLabeled,
+		issuesUnlabelled,
+		setIssuesUnlabelled,
+		issuesGroupedByLabel,
+		setIssuesGroupedByLabel,
+		isLoading,
+		setIsLoading,
+		repoUrl,
+		setRepoUrl,
+		repo,
+		setRepo,
+		owner,
+		setOwner,
+		accessToken
+	} = context
 
 	const fetchIssues = ({ owner, repo }: GitHubIssuesRequestParams) => {
-		setLoader(true)
-		gitHubIssuesGetter({ owner, repo })
+		setIsLoading(true)
+		gitHubIssuesGetter({ owner, repo, accessToken })
 			.then((response) => {
 				if (!response) {
 					setIssuesError(new Error('No issues found or repo not exits'))
 					setIssues([])
-					setLoader(false)
+					setIsLoading(false)
 					return
 				}
 				if (issuesError) setIssuesError(null)
 				if (response.length === 0) {
 					setIssuesError(new Error('No issues found on the repo'))
-					setLoader(false)
+					setIsLoading(false)
 					return
 				}
 				setIssues(response)
+				setRepo(repo)
+				setOwner(owner)
 			})
 			.catch((error) => {
 				setIssuesError(new Error(`No issues found or repo not exits. ${error.message}`))
 				setIssues([])
-				setLoader(false)
+				setIsLoading(false)
 			})
 	}
 
-	useEffect(() => {
-		if (!url) return
+	const getUserAndRepoFromUrl = ({ url }: { url: string }) => {
+		return url.replace('https://github.com/', '').split('/')
+	}
 
-		if (!url.startsWith('https://github.com/')) {
+	useEffect(() => {
+		if (!repoUrl) return
+
+		if (!repoUrl.startsWith('https://github.com/')) {
 			setIssuesError(new Error('The url must start with [https://github.com/]'))
 			return
 		}
-		const urlParts = url.replace('https://github.com/', '').split('/')
+		const urlParts = getUserAndRepoFromUrl({ url: repoUrl })
 		if (urlParts.length !== 2) {
 			console.error('Invalid URL')
 			setIssuesError(new Error('The url must be in the format [https://github.com/USER/REPO]'))
@@ -61,10 +84,10 @@ export function useGitHubIssues ({
 		// debouncing
 		const timeout = setTimeout(() => {
 			const [owner, repo] = urlParts
-			fetchIssues({ owner, repo })
-		}, 500)
+			fetchIssues({ owner, repo, accessToken })
+		}, 800)
 		return () => clearTimeout(timeout)
-	}, [url])
+	}, [repoUrl])
 
 	const filterIssuesGroupedByLabel = (issuesLabeled: Issue[]) => {
 		if (!issuesLabeled.length || issuesError) return
@@ -113,6 +136,12 @@ export function useGitHubIssues ({
 		issuesLabeled,
 		issuesUnlabelled,
 		issuesGroupedByLabel,
+		isLoading,
+		setIsLoading,
+		repoUrl,
+		setRepoUrl,
+		repo,
+		owner,
 		reloadIssuesUnlabelledWithPredictions
 	}
 }
