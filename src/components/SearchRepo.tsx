@@ -1,11 +1,6 @@
-import { useState, useEffect, useRef } from 'react'
-import { useClassify } from '../hooks/useClassify'
+import { useEffect, useRef } from 'react'
 import { useGitHubIssues } from '../hooks/useGitHubIssues'
-import type { Issue } from '../interfaces/GitHub'
-import { ErrorContainer } from './ErrorContainer'
-import { IssuesList } from './IssuesList'
-import { Loader } from './loader/Loader'
-import Modal from './Modal'
+import { useGitHubRepos } from '../hooks/useGitHubRepos'
 
 interface SearchRepoProps {
 	placeholder: string
@@ -14,76 +9,42 @@ interface SearchRepoProps {
 
 export function SearchRepo ({ placeholder, label }: SearchRepoProps) {
 	const githubUrlInput = useRef<HTMLInputElement>(null)
-	const [url, setUrl] = useState('')
-	const [isLoading, setIsLoading] = useState(false)
-	const [modalIssue, setModalIssue] = useState<Issue | null>(null)
+	const { userRepos } = useGitHubRepos()
 
-	const setLoader = (active: boolean) => {
-		setIsLoading(active)
-	}
-
-	const {
-		issues,
-		issuesError,
-		issuesLabeled,
-		issuesUnlabelled,
-		issuesGroupedByLabel,
-		reloadIssuesUnlabelledWithPredictions
-	} = useGitHubIssues({ url, setLoader })
-	const { classifies } = useClassify({ issuesLabeled, issuesUnlabelled, issuesGroupedByLabel })
+	const { repoUrl, setRepoUrl } = useGitHubIssues()
 
 	useEffect(() => {
-		if (githubUrlInput.current && !url) {
+		if (githubUrlInput.current && !repoUrl) {
 			githubUrlInput.current.focus()
 		}
 	}, [])
 
-	useEffect(() => {
-		const newIssuesUnlabelled = [...issuesUnlabelled]
-		classifies.forEach((classify) => {
-			const prediction = classify.prediction
-			const confidence = classify.confidence
-			const issue = newIssuesUnlabelled.find((issue) => issue.title === classify.input)
-			if (!issue) return
-			issue.prediction = prediction
-			issue.confidence = Number((confidence * 100).toFixed())
-		})
-		reloadIssuesUnlabelledWithPredictions(newIssuesUnlabelled)
-		setLoader(false)
-	}, [classifies])
-
-	const openModal = (issue: Issue) => {
-		setModalIssue(issue)
-	}
-
-	const closeModal = () => {
-		setModalIssue(null)
-	}
-
 	return (
 		<>
-			<Modal closeModal={closeModal} title={modalIssue?.title} body={modalIssue?.body} link={modalIssue?.html_url} />
 			<label className='w-full flex flex-row'>
 				<span className='w-fit'>{label}</span>
 				<input
 					ref={githubUrlInput}
 					type='url'
 					placeholder={placeholder}
+					list='repos'
 					className='input input-bordered w-full rounded-lg p-2 bg-gray-800'
-					value={url}
-					onChange={(e) => setUrl(e.target.value)}
+					value={repoUrl || ''}
+					onChange={(e) => setRepoUrl(e.target.value)}
 					autoFocus
 				/>
+				<datalist id='repos' className='absolute'>
+					{userRepos.map((repo) => (
+						<option
+							key={repo.id}
+							value={repo.html_url}
+							className='w-full rounded-lg p-2 bg-gray-800'
+						>
+							{repo.name}
+						</option>
+					))}
+				</datalist>
 			</label>
-			<Loader isEnabled={isLoading}/>
-			<ErrorContainer error={issuesError} />
-
-			{issues.length > 0 && (
-				<>
-					<IssuesList issues={issuesUnlabelled} headerText={'Unlabeled'} openModal={openModal}/>
-					<IssuesList issues={issuesLabeled} headerText={'Labeled'} openModal={openModal}/>
-				</>
-			)}
 		</>
 	)
 }

@@ -1,7 +1,9 @@
+import { useIssue } from '../hooks/useIssue'
 import type { Issue } from '../interfaces/GitHub'
 import { IssueListItem } from './IssueListItem'
 
-export function IssuesList ({ issues, headerText, openModal }: { issues: Issue[]; headerText?: string, openModal: (issue: Issue) => void }) {
+export function IssuesList ({ issues, headerText }: { issues: Issue[]; headerText?: string }) {
+	const { openModal } = useIssue()
 	return (
 		<>
 			{headerText && <h2 className='text-3xl font-bold'>{headerText}</h2>}
