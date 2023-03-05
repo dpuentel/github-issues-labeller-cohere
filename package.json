@@ -24,6 +24,7 @@
 		"@types/react-dom": "18.0.10",
 		"animated-tailwindcss": "4.0.0",
 		"astro": "2.0.2",
+		"oauth": "^0.10.0",
 		"parse-numeric-range": "1.3.0",
 		"react": "18.2.0",
 		"react-dom": "18.2.0",
@@ -35,6 +36,7 @@
 		"tailwindcss": "3.2.4"
 	},
 	"devDependencies": {
+		"@types/oauth": "^0.9.1",
 		"@types/react-syntax-highlighter": "15.5.6",
 		"@typescript-eslint/eslint-plugin": "5.49.0",
 		"@typescript-eslint/parser": "5.49.0",

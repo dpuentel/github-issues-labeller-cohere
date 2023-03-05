@@ -70,6 +70,28 @@ module.exports = withAnimations({
 			},
 			sans: {
 				fontFamily: ['Montserrat', ...defaultTheme.fontFamily.sans]
+			},
+			animation: {
+				slideInFromLeft: '0.5s cubic-bezier(0.18, 0.89, 0.32, 1.28) 0s 1 slideInFromLeft forwards',
+				slideOutToLeft: '0.5s cubic-bezier(0.6, -0.28, 0.74, 0.05) 0s 1 slideOutToLeft forwards'
+			},
+			keyframes: {
+				slideInFromLeft: {
+					'0%': {
+						transform: 'scaleX(0.0)'
+					},
+					'100%': {
+						transform: 'scaleX(1)'
+					}
+				},
+				slideOutToLeft: {
+					'0%': {
+						transform: 'scaleX(1)'
+					},
+					'100%': {
+						transform: 'scaleX(0.0)'
+					}
+				}
 			}
 		}
 	},

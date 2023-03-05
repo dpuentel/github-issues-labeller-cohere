@@ -15,7 +15,14 @@ export function useClassify ({
 	const [classifies, setClassifies] = useState<CohereClassification[]>([])
 
 	useEffect(() => {
-		if (!issuesGroupedByLabel || Object.keys(issuesGroupedByLabel).length === 0) return
+		if (
+			!issuesGroupedByLabel ||
+			Object.keys(issuesGroupedByLabel).length === 0 ||
+			issuesUnlabelled.length === 0
+		) {
+			setClassifies([])
+			return
+		}
 
 		classify({
 			inputs: generateInputsByIssues(issuesUnlabelled),

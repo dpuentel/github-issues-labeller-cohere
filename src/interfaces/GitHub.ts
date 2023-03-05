@@ -276,8 +276,160 @@ export interface Issue {
 export interface GitHubIssuesRequestParams {
 	owner: string
 	repo: string
+	accessToken: string | null
 }
 
 export interface IssuesGroupedByLabel {
 	[key: string]: Issue[]
+}
+
+export interface GitHubAccessTokenResults {
+	access_token: string
+	scope: string
+	token_type: string
+}
+
+export interface GitHubAccessTokenResponse {
+	accessToken: string
+	results: GitHubAccessTokenResults
+}
+
+export interface GitHubPrivateUser {
+	login: string
+	id: number
+	node_id: string
+	avatar_url: string
+	gravatar_id: string | null
+	url: string
+	html_url: string
+	followers_url: string
+	following_url: string
+	gists_url: string
+	starred_url: string
+	subscriptions_url: string
+	organizations_url: string
+	repos_url: string
+	events_url: string
+	received_events_url: string
+	type: string
+	site_admin: boolean
+	name: string | null
+	company: string | null
+	blog: string | null
+	location: string | null
+	email: string | null
+	hireable: boolean | null
+	bio: string | null
+	twitter_username?: string | null
+	public_repos: number
+	public_gists: number
+	followers: number
+	following: number
+	created_at: string
+	updated_at: string
+	private_gists: number
+	total_private_repos: number
+	owned_private_repos: number
+	disk_usage: number
+	collaborators: number
+	two_factor_authentication: boolean
+	plan?: {
+		collaborators: number
+		name: string
+		space: number
+		private_repos: number
+		[k: string]: unknown
+	}
+	suspended_at?: string | null
+	business_plus?: boolean
+	ldap_dn?: string
+	[k: string]: unknown
+}
+
+export interface GitHubPublicUser {
+	login: string
+	id: number
+	node_id: string
+	avatar_url: string
+	gravatar_id: string | null
+	url: string
+	html_url: string
+	followers_url: string
+	following_url: string
+	gists_url: string
+	starred_url: string
+	subscriptions_url: string
+	organizations_url: string
+	repos_url: string
+	events_url: string
+	received_events_url: string
+	type: string
+	site_admin: boolean
+	name: string | null
+	company: string | null
+	blog: string | null
+	location: string | null
+	email: string | null
+	hireable: boolean | null
+	bio: string | null
+	twitter_username?: string | null
+	public_repos: number
+	public_gists: number
+	followers: number
+	following: number
+	created_at: string
+	updated_at: string
+	plan?: {
+		collaborators: number
+		name: string
+		space: number
+		private_repos: number
+		[k: string]: unknown
+	}
+	suspended_at?: string | null
+	private_gists?: number
+	total_private_repos?: number
+	owned_private_repos?: number
+	disk_usage?: number
+	collaborators?: number
+}
+
+export interface GitHubCollaborator {
+	login: string
+	id: number
+	email?: string | null
+	name?: string | null
+	node_id: string
+	avatar_url: string
+	gravatar_id: string | null
+	url: string
+	html_url: string
+	followers_url: string
+	following_url: string
+	gists_url: string
+	starred_url: string
+	subscriptions_url: string
+	organizations_url: string
+	repos_url: string
+	events_url: string
+	received_events_url: string
+	type: string
+	site_admin: boolean
+	permissions?: {
+		pull: boolean
+		triage?: boolean
+		push: boolean
+		maintain?: boolean
+		admin: boolean
+		[k: string]: unknown
+	}
+	role_name: string
+	[k: string]: unknown
+}
+
+export interface GitHubRepositoryCollaboratorPermission {
+	permission: string
+	role_name: string
+	user: null | GitHubCollaborator
+	[k: string]: unknown
 }
