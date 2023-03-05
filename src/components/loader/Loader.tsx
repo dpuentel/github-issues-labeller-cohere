@@ -13,7 +13,7 @@ export function Loader () {
 	return (
 		<div className='loader-container'>
 			<span
-				className='loader ease-in-out duration-500'
+				className='loader ease-in-out duration-500 z-50'
 				style={{
 					opacity: isLoading ? 1 : 0
 				}}
