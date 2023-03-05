@@ -1,15 +1,17 @@
 import type { MouseEvent } from 'react'
 import { useAddLabelToIssue } from '../hooks/useAddLabelToIssue'
+import { useLoader } from '../hooks/useLoader'
 import type { Issue } from '../interfaces/GitHub'
 
 export function IssueModalExtraHeaderContent ({ issue }: { issue: Issue }) {
 	const { addLabelToIssue } = useAddLabelToIssue()
+	const { isLoading } = useLoader()
 
 	const acceptDialog = (event: MouseEvent<HTMLButtonElement>) => {
 		event.preventDefault()
 		event.stopPropagation()
 
-		if (!issue.prediction) return
+		if (!issue.prediction || isLoading) return
 
 		addLabelToIssue({ issue, label: issue.prediction })
 	}
