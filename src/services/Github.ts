@@ -5,7 +5,8 @@ import type {
 	Repository,
 	GitHubPrivateUser,
 	GitHubPublicUser,
-	GitHubRepositoryCollaboratorPermission
+	GitHubRepositoryCollaboratorPermission,
+	Label
 } from '../interfaces/GitHub'
 
 export async function gitHubIssuesGetter ({ owner, repo, accessToken }: GitHubIssuesRequestParams) {
@@ -159,6 +160,31 @@ export async function gitHubAddLabelToIssue ({
 		response.json().then((json) => {
 			console.error(json)
 		})
+		return Promise.reject(response)
+	})
+}
+
+export async function gitHubGetIssueLabels ({
+	owner,
+	repo,
+	issueNumber,
+	accessToken
+}: {
+	owner: string
+	repo: string
+	issueNumber: number
+	accessToken: string
+}) {
+	if (!accessToken) return Promise.reject(new Error('No access token provided!'))
+
+	const headers = new Headers()
+	headers.append('Authorization', `token ${accessToken}`)
+	return fetch(`https://api.github.com/repos/${owner}/${repo}/issues/${issueNumber}/labels`, {
+		headers
+	}).then((response): Promise<Label[]> => {
+		if (response.status === 200 && response.ok) {
+			return response.json()
+		}
 		return Promise.reject(response)
 	})
 }
